@@ -6,5 +6,9 @@ logged:
     controller: App\Controller\LoggedController::show
     
 change_password:
-    path: /chp
+    path: /chpass
     controller: App\Controller\ChangePasswordController::show
+    
+showLoggedOut:
+    path: /lout
+    controller: App\Controller\SecurityController::showLoggedOut

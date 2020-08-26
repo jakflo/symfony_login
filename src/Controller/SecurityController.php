@@ -32,6 +32,11 @@ class SecurityController extends ExtendedController
      */
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        return $this->renderWithParams('loggedOut.html.twig');
+        //throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+    
+    public function showLoggedOut() {
+        return $this->renderWithParams('loggedOut.html.twig');
     }
 }
