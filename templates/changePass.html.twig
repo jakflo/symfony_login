@@ -1,0 +1,10 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1>Změna hesla</h1>
+    {% include 'showFlashes.twig' with {'flashType':'notice', 'className':'notice'} %}
+    {% if notLogged is defined %}
+        <h2>Nutno býti přihlášen</h2>
+    {% else %}
+        {{ form(change_passwordForm) }}
+    {% endif %}
+{% endblock %}

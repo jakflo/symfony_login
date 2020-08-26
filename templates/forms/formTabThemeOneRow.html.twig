@@ -1,0 +1,31 @@
+{%- block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <td{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>        
+        {{- form_widget(form, widget_attr) -}}        
+    </td>
+{%- endblock form_row -%}
+
+{%- block button_row -%}
+    {% if form.vars.attr['data-button-side'] is defined %}
+        {% if form.vars.attr['data-button-side'] == 'left' %}
+            <td{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>            
+                {{- form_widget(form) -}}            
+        {% elseif form.vars.attr['data-button-side'] == 'middle' %}
+            {{- form_widget(form) -}}
+        {% elseif form.vars.attr['data-button-side'] == 'right' %}
+            {{- form_widget(form) -}}
+            </td>            
+        {% endif %}
+    {% else %}
+        <td{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>            
+            {{- form_widget(form) -}}            
+        </td>
+    {% endif %}
+{%- endblock button_row -%}
+
+{%- block form_errors -%}
+    
+{%- endblock form_errors -%}

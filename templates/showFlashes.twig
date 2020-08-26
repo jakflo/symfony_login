@@ -1,0 +1,12 @@
+{# 
+    flashType = (string) name of flash pack
+    className = (string) name of ul element class
+#}
+
+{% if app.flashes(flashType) is defined %}
+    <ul class="flash {{className}}">
+        {% for message in app.flashes(flashType) %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>    
+{% endif %}

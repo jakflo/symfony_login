@@ -1,0 +1,6 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    <h1>Přihlášeno jest</h1>
+    <a href="{{ url('app_logout') }}"><button type="button">Odhlásit se</button></a>
+    <a href="{{ url('change_password') }}"><button type="button">Změnit heslo</button></a>
+{% endblock %}

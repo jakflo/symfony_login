@@ -1,0 +1,56 @@
+{%- block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <tr{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        <td>
+            {{- form_label(form) -}}
+        </td>
+        <td>            
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+        </td>
+        <td>
+            {{- form_errors(form) -}}
+        </td>
+    </tr>
+{%- endblock form_row -%}
+
+{%- block button_row -%}
+    {% if form.vars.attr['data-button-side'] is defined %}
+        {% if form.vars.attr['data-button-side'] == 'left' %}
+            <tr{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>        
+            <td>
+                {{- form_widget(form) -}}            
+        {% elseif form.vars.attr['data-button-side'] == 'middle' %}
+            {{- form_widget(form) -}}
+        {% elseif form.vars.attr['data-button-side'] == 'right' %}
+            {{- form_widget(form) -}}
+            </td>
+            <td></td><td></td>
+            </tr>
+        {% endif %}
+    {% else %}
+        <tr{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>        
+            <td>
+                {{- form_widget(form) -}}
+            </td>
+            <td></td><td></td>
+        </tr>
+    {% endif %}
+{%- endblock button_row -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        {%- if errors|length == 1 -%}
+            <span class="form_error">{{ errors[0].message }}</span>
+        {% else %}
+            <ul class="form_errors">
+                {%- for error in errors -%}
+                    <li>{{ error.message }}</li>
+                {%- endfor -%}
+            </ul>
+        {% endif %}
+    {%- endif -%}
+{%- endblock form_errors -%}

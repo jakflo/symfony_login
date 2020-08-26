@@ -1,3 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+logged:
+    path: /
+    controller: App\Controller\LoggedController::show
+    
+change_password:
+    path: /chp
+    controller: App\Controller\ChangePasswordController::show
