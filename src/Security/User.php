@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     private $name;
-
     private $roles = [];
+    private $id;
 
     /**
      * @var string The hashed password
@@ -28,6 +28,14 @@ class User implements UserInterface
     {
         $this->name = $name;
 
+        return $this;
+    }
+    
+    public function getId() {
+        return $this->id;
+    }
+    public function setId(int $id) {
+        $this->id = $id;
         return $this;
     }
 

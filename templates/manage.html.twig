@@ -1,0 +1,70 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    
+    <h1>Zpráva uživatelů</h1>
+    {% include 'showFlashes.twig' with {flashType: 'notice', className: 'notice'} %}
+
+    <table id="user_list" class="normTab">
+        <tr>
+            <th>Jméno</th><th>Role</th><th></th>
+        </tr>
+        {% for userRow in usersList %}
+            <tr id="user_row_{{ userRow.id }}">
+                <td class="user_name">{{ userRow.name }}</td>
+                <td>
+                    <div class="user_role">
+                        {% for role in userRow.roles %}
+                            <span 
+                                class="user_role {{ roleList.getName(role) }}" 
+                                title="{{ roleList.getCzName(role) }}" 
+                                data-id="{{ role }}"
+                                >█
+                            </span>                        
+                        {% endfor %}
+                    </div>
+                </td>
+                <td>
+                    {% if userRow.name == app.user.name %}
+                        {% set disabled = 'disabled' %}
+                    {% else %}
+                        {% set disabled = '' %}
+                    {% endif %}
+                    <button 
+                        type="button" 
+                        class="change_roles" 
+                        data-id="{{ userRow.id }}" 
+                        {{ disabled }}
+                        >Změnit role
+                    </button>
+                    <button 
+                        type="button" 
+                        class="delete_user" 
+                        data-id="{{ userRow.id }}" 
+                        {{ disabled }}
+                        >Smazat uživatele
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div id="change_roles_wrap" class="hidden form_wrap">
+        <h2 id="change_roles_headline">Změnit role uživatele <span class="user_name"></span></h2>
+        {{ form(change_roleForm) }}        
+    </div>
+    <div id="delete_user_wrap" class="hidden form_wrap">
+        <h2 id="delete_user_headline">Skutečně si přejete vymazat uživatele <span class="user_name"></span>?</h2>
+        {{ form(delete_userForm) }}
+    </div>
+    
+    {% if change_roleForm.vars['submitted'] and change_roleForm.vars['valid'] == false %}
+        <div id="change_form_failed_id" class='hidden'>{{ change_roleForm.children['id'].vars['value'] }}</div>
+    {% endif %}
+    {% if delete_userForm.vars['submitted'] and delete_userForm.vars['valid'] == false %}
+        <div id="delete_form_failed_id" class='hidden'>{{ delete_userForm.children['id'].vars['value'] }}</div>
+    {% endif %}
+    
+{% endblock %}
+{% block javasripts %}
+    <script src="{{ webroot }}/js/manageUsers.js"></script>
+{% endblock %}

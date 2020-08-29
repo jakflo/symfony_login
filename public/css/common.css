@@ -43,3 +43,16 @@ ul.flash li {
 ul.flash.notice li {
     color: blue;
 }
+
+span.user_role.ROLE_USER {
+    color: blue;
+}
+span.user_role.ROLE_ADMIN {
+    color: red;
+}
+span.user_role.ROLE_AUTHOR {
+    color: green;
+}
+span.user_role.ROLE_MODERATOR {
+    color: purple;
+}
