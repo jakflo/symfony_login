@@ -21,7 +21,7 @@ table.normTab tr.marked {
     display: none;
 }
 
-span.form_error, ul.form_errors li {
+span.form_error, td.form_error, ul.form_errors li {
     font-weight: bold;
     color: red;
 }

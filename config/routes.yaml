@@ -15,4 +15,9 @@ showLoggedOut:
 
 manageUsers:
     path: /manage
-    controller: App\Controller\ManageController::show    
+    controller: App\Controller\ManageController::show
+    
+isUsernameUsedAjax:
+    path: /ajax/isUsernameUsed
+    controller: App\Controller\RegistrationController::isUsernameUsedAjax
+        

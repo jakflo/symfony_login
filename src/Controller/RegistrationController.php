@@ -47,4 +47,16 @@ class RegistrationController extends ExtendedController
         }
         return $this->renderWithParams('registration/register.html.twig');
     }
+    
+    public function isUsernameUsedAjax(Request $request) {
+        $name = trim($request->get('name'));
+        $stat = 'ok';
+        if (!empty($name)) {
+            $model = new UserModel($this->db);
+            if ($model->userExists($name)) {
+                $stat = 'used';
+            }
+        }        
+        return new Response(json_encode(['stat' => $stat]), 200, ['Content-Type' => 'application/json']);
+    }
 }
