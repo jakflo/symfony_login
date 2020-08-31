@@ -47,6 +47,13 @@ class UpdateUserModel extends Models {
         $this->db->sendSQL('delete from user_has_role where user_id=?', array($this->userId));        
     }
     
+    public function updatePassword(string $newPassEncoded) {
+        $this->db->sendSQL(
+                'update users set password=:pass where id=:id',
+                array(':pass' => $newPassEncoded, ':id' => $this->userId)
+                );
+    }
+    
     public function getName() {
         return $this->db->dotaz_hodnota(
                 'SELECT name FROM users where id=?', 

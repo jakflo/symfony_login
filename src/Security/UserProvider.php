@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use App\Entity\DbConfig;
 use App\Entity\Models\Db_wrap;
 use App\Entity\Models\UserModel;
+use App\Entity\Models\UpdateUserModel;
 
 class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
@@ -64,9 +65,10 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      * Upgrades the encoded password of a user, typically for using a better hash algorithm.
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
-    {
-        // TODO: when encoded passwords are in use, this method should:
-        // 1. persist the new password in the user storage
-        // 2. update the $user object with $user->setPassword($newEncodedPassword);
+    {                
+        $user->setPassword($newEncodedPassword);
+        $db = new Db_wrap(new DbConfig);
+        $updater = new UpdateUserModel($db, $user->getId());
+        $updater->updatePassword($newEncodedPassword);        
     }
 }

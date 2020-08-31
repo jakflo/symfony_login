@@ -4,6 +4,7 @@ namespace App\Entity\Models;
 use App\Security\User;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use App\utils\ArrayTools;
+use App\Entity\Models\UpdateUserModel;
 
 class UserModel extends Models {
     public function register(User $user) {
@@ -44,10 +45,8 @@ class UserModel extends Models {
     public function updatePassword(UserPasswordEncoderInterface $passwordEncoder, User $user, string $newPassword) {
         $newPassEncoded = $passwordEncoder->encodePassword($user, $newPassword);
         $user->setPassword($newPassEncoded);
-        $this->db->sendSQL(
-                'update users set password=:pass where id=:id',
-                array(':pass' => $newPassEncoded, ':id' => $user->getId())
-                );
+        $updater = new UpdateUserModel($this->db, $user->getId());
+        $updater->updatePassword($newPassEncoded);
     }
     
     public function getUserList() {
