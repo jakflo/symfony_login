@@ -1,7 +1,7 @@
 <?php
 namespace App\Entity;
 
-class DbConfig {
+class DbConfig implements DbConfigInterface {
     protected $servername = 'localhost';
     protected $username = 'root';
     protected $password = '12345';

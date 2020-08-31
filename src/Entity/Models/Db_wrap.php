@@ -3,6 +3,7 @@
 namespace App\Entity\Models;
 use PDO;
 use PDOException;
+use App\Entity\DbConfigInterface;
 
 
 class Db_wrap {
@@ -22,7 +23,7 @@ class Db_wrap {
         }        
     }
     
-    public function __construct($config) {
+    public function __construct(DbConfigInterface $config) {
         $this->config = $config;
         if (!isset($this->conn)) {
             $this->connect();            
